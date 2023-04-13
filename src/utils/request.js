@@ -17,7 +17,17 @@ service.interceptors.request.use(config => {
     }
     console.log('request-config=>', config)
     return config
-})
+}), err => {
+    // 请求出现错误时回调
+    let { message } = err
+    Message({
+        message: message,
+        type: 'error',
+        // 显示时间, 毫秒。设为 0 则不会自动关闭	
+        duration: 5 * 1000
+    })
+    return Promise.reject(err)
+}
 
 
 // axios请求拦截器
@@ -42,6 +52,19 @@ service.interceptors.response.use(res => {
     }
 }, err => {
     // 请求出现错误时回调
-    console.log('错误', err)
+    let { message } = err
+    console.log('错误', message)
+    if (message.includes('timeout')) {
+        message = '系统接口请求超时'
+    } else if (message.includes('Request failed with status code')) {
+        message = '系统接口' + message.substr(message.length - 3) + '异常'
+    }
+    Message({
+        message: message,
+        type: 'error',
+        // 显示时间, 毫秒。设为 0 则不会自动关闭	
+        duration: 5 * 1000
+    })
+    return Promise.reject(err)
 })
 export default service

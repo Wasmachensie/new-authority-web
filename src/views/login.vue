@@ -127,17 +127,21 @@
     methods: {
       // 获取验证码
       getCode() {
-        getCodeImg().then((res) => {
-          console.log('验证码接口', res)
-          this.loginForm.uuid = res.uuid
-          this.captchaEnabled =
-            res.captchaEnabled === undefined ? false : res.captchaEnabled
-          // 是否开启验证码
-          if (this.captchaEnabled) {
-            //  Data URI scheme处理
-            this.codeUrl = 'data:image/gif;base64,' + res.img
-          }
-        })
+        getCodeImg()
+          .then((res) => {
+            console.log('验证码接口', res)
+            this.loginForm.uuid = res.uuid
+            this.captchaEnabled =
+              res.captchaEnabled === undefined ? false : res.captchaEnabled
+            // 是否开启验证码
+            if (this.captchaEnabled) {
+              //  Data URI scheme处理
+              this.codeUrl = 'data:image/gif;base64,' + res.img
+            }
+          })
+          .catch((err) => {
+            console.log('request.js=>到login.vue=>err', err)
+          })
       },
       // 点击登录
       handleLogin() {

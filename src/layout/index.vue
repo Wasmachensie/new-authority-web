@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <side-bar></side-bar>
+  <div class="app-wrapper">
+    <side-bar class="sidebar-container"></side-bar>
     <div>
       <nav-bar></nav-bar>
       <tags-view></tags-view>
@@ -23,5 +23,17 @@
   }
 </script>
 
-<style>
+<style scoped lang="scss">
+  // 导入
+  @import '~@/assets/styles/variables.scss';
+  .app-wrapper {
+    width: 100%;
+    height: 100%;
+  }
+  .sidebar-container {
+    width: 200px;
+    height: 100%;
+    background: $base-menu-background;
+    position: fixed;
+  }
 </style>

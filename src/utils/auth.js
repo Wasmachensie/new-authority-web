@@ -17,5 +17,5 @@ export function getToken(token) {
 // 移除token
 export function removeToken(token) {
     // k-v保存
-    return Cookies.remove(token)
+    return Cookies.remove(TokenKey)
 }

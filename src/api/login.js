@@ -37,3 +37,11 @@ export function getInfo() {
         method: 'GET',
     })
 }
+
+// 退出登录接口
+export function logout() {
+    return request({
+        url: '/logout',
+        method: 'POST'
+    })
+}

@@ -1,8 +1,11 @@
 // 引入axios 注意没有{}
+import store from '@/store'
 import axios from 'axios'
-import { Message } from 'element-ui'
+import { Message, MessageBox } from 'element-ui'
 import { getToken } from './auth'
 
+// 是否展示弹窗
+let isRelogin = { show: false }
 
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,
@@ -12,7 +15,6 @@ const service = axios.create({
 service.interceptors.request.use(config => {
     const notToken = (config.headers || {}).notToken === true
     if (getToken() && !notToken) {
-        console.log('fdsa')
         config.headers['Authorization'] = 'Bearer ' + getToken()
     }
     console.log('request-config=>', config)
@@ -46,6 +48,25 @@ service.interceptors.response.use(res => {
         })
         return Promise.reject(new Error(msg))
     } else if (code === 401) {
+        if (!isRelogin.show) {
+            isRelogin.show = true
+            MessageBox.confirm('登录状态已过期，请重新登录', {
+                confirmButtonText: '重新登录',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                isRelogin.show = false
+                store.dispatch('Logout').then(() => {
+                    console.log('1111111111')
+                    // 重定向
+                    location.href = '/'
+                })
+            }).catch(() => {
+                isRelogin.show = false
+            })
+        }
+
+
         return Promise.reject(new Error('无效的会话，或者会话已过期，请重新登录'))
     } else if (code != 200) {
         return Promise.reject(new Error('err'))

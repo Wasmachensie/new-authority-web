@@ -1,5 +1,5 @@
-import { getInfo, login } from "../../api/login"
-import { getToken, setToken } from "../../utils/auth"
+import { getInfo, login, logout } from "../../api/login"
+import { getToken, removeToken, setToken } from "../../utils/auth"
 
 const user = {
     state: {
@@ -66,13 +66,29 @@ const user = {
 
                     commit('SET_NAME', user.username)
                     commit('SET_AVATAR', avatar)
-
                     resolve(res)
                 }).catch((err) => {
                     reject(err)
                 })
             })
 
+        },
+
+        // 退出登录
+        Logout({ commit, state }) {
+            return new Promise((resolve, reject) => {
+                logout().then(() => {
+                    console.log('退出')
+                    commit('SET_TOKEN', '')
+                    commit('SET_ROLES', [])
+                    commit('SET_PERMISSIONS', [])
+                    // 移除cookie里的token
+                    removeToken()
+                    resolve()
+                }).catch(err => {
+                    reject(err)
+                })
+            })
         }
     },
 }

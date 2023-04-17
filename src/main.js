@@ -9,6 +9,8 @@ import "./perimission.js"
 import router from "./router"
 import store from "./store"
 
+import '@/assets/styles/index.scss'
+
 Vue.config.productionTip = false
 
 // 使用ElmentUI

@@ -1,11 +1,11 @@
 <template>
   <div class="app-wrapper">
     <side-bar class="sidebar-container"></side-bar>
-    <div>
+    <div class="main-container">
       <nav-bar></nav-bar>
       <tags-view></tags-view>
+      <app-main></app-main>
     </div>
-    <app-main></app-main>
   </div>
 </template>
 

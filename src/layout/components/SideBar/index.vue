@@ -11,7 +11,8 @@
                active-text-color="#ffd04b">
         <sidebar-item v-for="(route,index) in sidebarRouters"
                       :key="route.path + index"
-                      :item="route">
+                      :item="route"
+                      :base-path="route.path">
         </sidebar-item>
       </el-menu>
     </el-scrollbar>

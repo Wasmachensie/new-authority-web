@@ -183,19 +183,19 @@
     color: #707070;
   }
 
-  .login-form:hover {
-    // display: block;
-    // 不透明
-    opacity: 1;
-    // 过度时间
-    transition: 2.5s;
-  }
+  /*  .login-form:hover {
+        // display: block;
+        // 不透明
+        opacity: 1;
+        // 过度时间
+        transition: 2.5s;
+      } */
 
   .login-form {
     // 隐藏
     // display: none;
     // 透明度
-    opacity: 0.1;
+    // opacity: 0.1;
     box-sizing: border-box;
     border-radius: 6px;
     background: #ffffff;

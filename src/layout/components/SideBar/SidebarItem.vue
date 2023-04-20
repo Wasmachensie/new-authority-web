@@ -12,7 +12,7 @@
     </template>
 
     <el-submenu v-else
-                :index="basePathz">
+                :index="basePath">
       <template slot="title">
         <!-- 图标 -->
         <!-- <i class="el-icon-lacation"></i> -->
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+  import { isExternal } from '@/utils/validate'
   import path from 'path'
   import MenuItem from './Item'
   import AppLink from './Link'
@@ -50,6 +51,12 @@
     components: { MenuItem, AppLink },
     methods: {
       resolvePath(routePath) {
+        if (isExternal(routePath)) {
+          return routePath
+        }
+        if (isExternal(this.basePath)) {
+          return this.basePath
+        }
         return path.resolve(this.basePath, routePath)
       },
     },

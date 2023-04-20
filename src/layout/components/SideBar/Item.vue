@@ -16,7 +16,7 @@
       const { icon, title } = context.props
       const vnodes = []
       if (icon) {
-        vnodes.push
+        vnodes.push(<svg-icon icon-class={icon}></svg-icon>)
       }
       if (title) {
         vnodes.push(<span>{title}</span>)

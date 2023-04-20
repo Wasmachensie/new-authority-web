@@ -18,6 +18,9 @@ router.beforeEach((to, from, next) => {
                 console.log('permission.js2=>',)
                 store.dispatch('GetInfo').then(res => {
                     console.log('permission.js3', res)
+                    store.dispatch('GenerateRoutes').then(accessRoutes => {
+                        console.log('accessR=>', accessRoutes)
+                    })
                     next()
                 }).catch(err => {
                     Message.error(err)
